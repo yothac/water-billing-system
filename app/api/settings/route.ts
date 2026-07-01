@@ -108,7 +108,7 @@ function missingConfigResponse() {
     {
       ok: false,
       message:
-        "ยังไม่ได้ตั้งค่า Supabase ใน .env.local ให้ครบ: NEXT_PUBLIC_SUPABASE_URL และ SUPABASE_SERVICE_ROLE_KEY",
+        "ยังไม่ได้ตั้งค่า Environment Variables ของ Supabase ให้ครบ: NEXT_PUBLIC_SUPABASE_URL และ SUPABASE_SERVICE_ROLE_KEY",
     },
     { status: 503 }
   );
