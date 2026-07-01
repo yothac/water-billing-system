@@ -1,0 +1,2 @@
+@import "tailwindcss";
+html,body{margin:0;background:#f1f5f9;color:#0f172a;font-family:Arial,"Noto Sans Thai",Tahoma,sans-serif} *{box-sizing:border-box} button,input,select,textarea{font:inherit} @media print{.no-print{display:none!important}.print-a4{width:210mm;min-height:297mm;margin:0 auto;box-shadow:none!important;border:none!important}body{background:white}}
