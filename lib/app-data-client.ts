@@ -9,6 +9,7 @@ import {
   getStoredWaterUsers,
 } from "./local-store";
 import type {
+  BackupData,
   BillingPeriod,
   MeterReading,
   Payment,
@@ -96,4 +97,24 @@ export async function loadWaterAppData(): Promise<WaterAppData> {
   }
 
   return loadLocalWaterAppData();
+}
+
+export function makeBackupDataFromWaterAppData(data: WaterAppData): BackupData {
+  return {
+    appName: "water-billing-system",
+    version:
+      data.mode === "supabase"
+        ? "supabase-backup-v1"
+        : "localStorage-backup-v3-data-link-fix",
+    exportedAt: new Date().toISOString(),
+    currentPeriod: data.currentPeriod,
+    settings: data.settings,
+    users: data.users,
+    readings: data.readings,
+    payments: data.payments,
+  };
+}
+
+export async function exportCurrentWaterAppData(): Promise<BackupData> {
+  return makeBackupDataFromWaterAppData(await loadWaterAppData());
 }

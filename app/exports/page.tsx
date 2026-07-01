@@ -9,8 +9,10 @@ import {
   padMeterReading,
 } from "../../lib/billing";
 import { getUserServiceFee } from "../../lib/service-fee";
-import { loadWaterAppData } from "../../lib/app-data-client";
-import { exportAllData } from "../../lib/local-store";
+import {
+  exportCurrentWaterAppData,
+  loadWaterAppData,
+} from "../../lib/app-data-client";
 import type {
   BillingMode,
   BillingPeriod,
@@ -436,8 +438,8 @@ export default function ExportsPage() {
     showMessage("ส่งออก CSV รับชำระแล้ว");
   }
 
-  function handleExportBackupJson() {
-    const data = exportAllData();
+  async function handleExportBackupJson() {
+    const data = await exportCurrentWaterAppData();
     const filename = `water-billing-backup-${getFileDateText()}.json`;
 
     downloadTextFile(

@@ -7,6 +7,7 @@ import {
   importAllData,
   resetAllStoredData,
 } from "../../lib/local-store";
+import { exportCurrentWaterAppData } from "../../lib/app-data-client";
 import type { BackupData } from "../../types/water-system";
 
 type RestoreStatus = "idle" | "ready" | "success" | "error";
@@ -63,14 +64,18 @@ export default function BackupPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  function refreshBackupPreview() {
-    const data = exportAllData();
+  async function refreshBackupPreview() {
+    try {
+      const data = await exportCurrentWaterAppData();
 
-    setBackupData(data);
+      setBackupData(data);
+    } catch {
+      setBackupData(exportAllData());
+    }
   }
 
   useEffect(() => {
-    refreshBackupPreview();
+    void refreshBackupPreview();
   }, []);
 
   const dataHealth = useMemo(() => {
@@ -126,8 +131,8 @@ export default function BackupPage() {
     setMessage("");
   }
 
-  function handleDownloadJson() {
-    const data = exportAllData();
+  async function handleDownloadJson() {
+    const data = await exportCurrentWaterAppData();
 
     setBackupData(data);
 
@@ -142,8 +147,8 @@ export default function BackupPage() {
     showMessage("ดาวน์โหลด Backup JSON แล้ว");
   }
 
-  function handleDownloadTextSummary() {
-    const data = exportAllData();
+  async function handleDownloadTextSummary() {
+    const data = await exportCurrentWaterAppData();
 
     setBackupData(data);
 
